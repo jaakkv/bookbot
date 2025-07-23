@@ -3,7 +3,7 @@ def number_of_words(filepath):
 
     with open(filepath) as f:
         content = f.read().split()
-        return f"{len(content)} words found in the document"
+        return f"Found {len(content)} total words"
 
 def number_of_characters(filepath):
     content = ""
@@ -13,9 +13,16 @@ def number_of_characters(filepath):
         content = f.read()
 
     for char in content:
-        if char.lower() in char_dict:
-            char_dict[char.lower()] += 1
-        else:
-            char_dict[char.lower()] = 1
+        if char.isalpha():
+            if char.lower() in char_dict:
+                char_dict[char.lower()] += 1
+            else:
+                char_dict[char.lower()] = 1
 
-    return char_dict
+    result = [{"char": c, "num": n} for c, n in char_dict.items()]
+    return result
+
+def sort_dictionary(list):
+    return list["num"]
+
+
