@@ -1,18 +1,15 @@
-def number_of_words(filepath):
-    content = []
+def get_book_text(path):
+    with open(path) as f:
+        return f.read()
 
-    with open(filepath) as f:
-        content = f.read().split()
-        return f"Found {len(content)} total words"
+def number_of_words(text):
+        words = text.split()
+        return len(words)
 
-def number_of_characters(filepath):
-    content = ""
+def number_of_characters(text):
     char_dict = {}
 
-    with open(filepath) as f:
-        content = f.read()
-
-    for char in content:
+    for char in text:
         if char.isalpha():
             if char.lower() in char_dict:
                 char_dict[char.lower()] += 1
@@ -22,7 +19,18 @@ def number_of_characters(filepath):
     result = [{"char": c, "num": n} for c, n in char_dict.items()]
     return result
 
-def sort_dictionary(list):
-    return list["num"]
+def sort_dictionary(dict_item):
+    return dict_item["num"]
+
+def print_report(book_path, num_of_words, chars_dict):
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {book_path}...")
+    print("----------- Word Count ----------")
+    print(f"Found {num_of_words} total words")
+    print("----------- Character Count ----------")
+    chars_dict.sort(reverse=True, key=sort_dictionary)
+    for dict_item in chars_dict:
+        print(f"{dict_item["char"]}: {dict_item['num']}")
+    print("============= END ===============")
 
 

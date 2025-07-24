@@ -1,17 +1,15 @@
+import sys
 from stats import *
 
 def main():
-    result = []
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    book_path = sys.argv[1]
+    text = get_book_text(book_path)
+    num_of_words = number_of_words(text)
+    chars_dict = number_of_characters(text)
+    print_report(book_path, num_of_words, chars_dict)
 
-    print("============ BOOKBOT ============")
-    print(f"Analyzing book found at books/frankenstein.txt...")
-    print("----------- Word Count ----------")
-    print(number_of_words('books/frankenstein.txt'))
-    print("--------- Character Count -------")
-    result = number_of_characters('books/frankenstein.txt')
-    result.sort(reverse=True, key=sort_dictionary)
-    for item in result:
-        print(f"{item["char"]}: {item['num']}")
-    print("============= END ===============")
 if __name__ == '__main__':
     main()
